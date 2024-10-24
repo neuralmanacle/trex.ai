@@ -1,25 +1,29 @@
-import {useState} from "react";
-import QueryForm from './QueryForm';
-import store from '../lib/store';
+"use client";
 
-interface InputType{
+import { useState } from "react";
+import { useDispatch } from 'react-redux'; // Import useDispatch from react-redux
+import QueryForm from './QueryForm';
+ // Adjust path and import your action
+
+interface InputType {
     id: string;
     label: string;
 }
 
 const inputTypes: InputType[] = [
-    { id: '01', label: 'GPT-4o'},
-    { id: '02', label: 'DALL-E'},
-    { id: '03', label: 'GPT-4o Image'},
-    { id: '04', label: 'GPT Long'},
+    { id: '01', label: 'GPT-4o' },
+    { id: '02', label: 'DALL-E' },
+    { id: '03', label: 'GPT-4o Image' },
+    { id: '04', label: 'GPT Long' },
 ];
 
 export default function InputSelector() {
     const [selectedType, setSelectedType] = useState<string | null>(null);
+    const dispatch = useDispatch(); // Get the dispatch function
 
     const handleSelect = (type: string) => {
         setSelectedType(type);
-        store.set({ inputType: type }); // Update the store with selected input type
+        dispatch(setInputType(type)); // Dispatch action to update input type in Redux store
     };
 
     return (

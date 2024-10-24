@@ -1,26 +1,16 @@
-// src/app/layout.tsx
+// src/pages/_app.tsx or src/app/layout.tsx
+"use client"; // This directive indicates that this component should be rendered on the client side
 
 import React from 'react';
-import Header from './components/Header'; // Import your Header component
-import Footer from './components/Footer'; // Import your Footer component
+import { Provider } from 'react-redux';
+import store from '../lib/store'; // Adjust path as necessary (use '../' if in src/app)
+import { QueryForm } from './components/QueryForm'; // Adjust path as necessary
 
-export const metadata = {
-    title: "My AI Query App",
-    description: "An application for querying AI services",
-};
-
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function MyApp({ Component, pageProps }) {
     return (
-        <html lang="en">
-            <body>
-                <Header />
-                {children} {/* This renders the specific page content */}
-                <Footer />
-            </body>
-        </html>
+        <Provider store={store}>
+            <QueryForm /> {/* Render QueryForm here */}
+            <Component {...pageProps} />
+        </Provider>
     );
 }
